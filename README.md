@@ -27,17 +27,6 @@ Built a professional Laravel-based Invoice & Billing System that automates the e
 ✅ **Professional Output** - Consistent, business-ready invoice formatting  
 ✅ **Accessibility** - Available on all devices without login requirements
 
-## 📅 Daily Milestones Completion
-
-| Date | Milestone | Status | Deliverables |
-|------|-----------|---------|--------------|
-| 2025-10-20 | Research & Planning | ✅ Completed | Project requirements, tech stack finalization |
-| 2025-10-21 | Structure & Draft #1 | ✅ Completed | Database design, MVC architecture |
-| 2025-10-22 | Build Core Features | ✅ Completed | Client & Invoice CRUD, PDF generation |
-| 2025-10-23 | Polish, QA, Feedback | ✅ Completed | Responsive design, error handling |
-| 2025-10-24 | Finalize Deliverables | ✅ Completed | Complete system testing |
-| 2025-10-25 | Publish/Hand-off | ✅ Completed | GitHub repository, documentation |
-
 ## 🚀 Project Features
 
 ### Core Functionality
@@ -54,26 +43,13 @@ Built a professional Laravel-based Invoice & Billing System that automates the e
 
 ## 🛠️ Technology Stack
 
-- **Backend:** Laravel 11, PHP 8.1+
-- **Frontend:** Blade Templates, Tailwind CSS
+- **Backend:** Laravel 11, PHP 8.2
+- **Frontend:** Blade Templates, Bootstrap & CSS
 - **Database:** MySQL with Eloquent ORM
 - **PDF Generation:** DomPDF Library
 - **Icons:** Font Awesome
 - **Version Control:** Git & GitHub
 
-## 📁 Project Structure
-laravel-invoice-billing-system/
-├── app/
-│ ├── Models/ (Client, Invoice, InvoiceItem)
-│ └── Http/Controllers/ (ClientController, InvoiceController)
-├── database/migrations/ (Database schema)
-├── resources/views/ (Blade templates)
-│ ├── clients/ (CRUD operations)
-│ ├── invoices/ (Invoice management)
-│ └── layouts/ (Master template)
-└── routes/ (Web routes)
-
-text
 
 ## ⚡ Quick Setup
 
