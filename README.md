@@ -15,7 +15,7 @@ A professional, clean, and responsive Invoice & Billing management system built 
 ![Create Invoice](screenshots/create-invoice.png)
 
 ### Invoice Client
-![Invoice Client](screenshots/client-invoice.png)
+![Invoice Client](screenshots/invoice-pdf.png)
 
 ### Create Client
 ![Create Client](screenshots/create-client.png)
@@ -24,7 +24,7 @@ A professional, clean, and responsive Invoice & Billing management system built 
 ![Client List](screenshots/client-list.png)
 
 ### PDF Output
-![PDF Invoice](screenshots/invoice-pdf.png)
+![PDF Invoice](screenshots/client-invoice.png)
 
 ## ✨ Features
 
@@ -188,9 +188,11 @@ This project is open-sourced under the MIT License.
 ## 👨‍💻 Developer
 
 **Majid Ali**  
-Laravel Developer at iCreativez Technologies  
-📧 Email: majidalishar2@gmail.com  
-🔗 GitHub: [@https://github.com/majid-ali-dev](https://github.com/majid-ali-dev/laravel-invoice-billing-system)
+Laravel Developer @ iCreativez Technologies
+
+- 📧 majidalishar2@gmail.com
+- 💻 GitHub: [@majid-ali-dev](https://github.com/majid-ali-dev)
+- 🔗 Project: [Invoice System](https://github.com/majid-ali-dev/laravel-invoice-billing-system)
 
 ## 🙏 Acknowledgments
 
