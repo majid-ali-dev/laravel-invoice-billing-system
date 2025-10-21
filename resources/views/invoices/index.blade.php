@@ -77,7 +77,7 @@
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <td class="px-6 py-4 whitespace-nowrap font-medium">
                                 <a href="{{ route('invoices.show', $invoice) }}"
                                     class="text-blue-600 hover:text-blue-900 mr-3" title="View">
                                     <i class="fas fa-eye"></i>
