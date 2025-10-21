@@ -3,88 +3,87 @@
 @section('title', 'Clients')
 
 @section('content')
-    <div class="flex justify-between items-center mb-8">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-900">Clients</h1>
-            <p class="text-gray-600 mt-2">Manage all your clients</p>
+    <div class="py-section">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="display-3 fw-bold text-dark mb-3">Clients</h1>
+                <p class="lead text-muted">Manage all your clients</p>
+            </div>
+            <a href="{{ route('clients.create') }}" class="btn btn-primary btn-lg shadow-sm">
+                <i class="fas fa-plus me-2"></i> Add New Client
+            </a>
         </div>
-        <a href="{{ route('clients.create') }}"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow-md transition">
-            <i class="fas fa-plus mr-2"></i> Add New Client
-        </a>
-    </div>
 
     @if ($clients->count() > 0)
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">#</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($clients as $client)
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="h-10 w-10 flex-shrink-0">
-                                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                            <span
-                                                class="text-blue-600 font-semibold text-lg">{{ substr($client->name, 0, 1) }}</span>
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">#</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Name</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Company</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Email</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Phone</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($clients as $client)
+                                <tr>
+                                    <td class="px-3 py-3">{{ $client->id }}</td>
+                                    <td class="px-3 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                <span class="text-primary fw-semibold">{{ substr($client->name, 0, 1) }}</span>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium text-dark">{{ $client->name }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $client->name }}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $client->company ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $client->email ?? 'N/A' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $client->phone ?? 'N/A' }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <a href="{{ route('clients.edit', $client) }}"
-                                    class="text-blue-600 hover:text-blue-900 mr-3">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                                <form action="{{ route('clients.destroy', $client) }}" method="POST" class="inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this client?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    </td>
+                                    <td class="px-3 py-3 text-dark">{{ $client->company ?? 'N/A' }}</td>
+                                    <td class="px-3 py-3 text-muted">{{ $client->email ?? 'N/A' }}</td>
+                                    <td class="px-3 py-3 text-muted">{{ $client->phone ?? 'N/A' }}</td>
+                                    <td class="px-3 py-3">
+                                        <a href="{{ route('clients.edit', $client) }}" class="btn btn-sm btn-outline-primary me-2">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" 
+                                            onclick="confirmDelete('This will permanently delete the client and all associated invoices. This action cannot be undone.', function() {
+                                                document.getElementById('delete-form-{{ $client->id }}').submit();
+                                            })">
+                                            <i class="fas fa-trash me-1"></i> Delete
+                                        </button>
+                                        <form id="delete-form-{{ $client->id }}" action="{{ route('clients.destroy', $client) }}" method="POST" class="d-none">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Pagination -->
-        <div class="mt-6">
+        <div class="mt-5">
             {{ $clients->links() }}
         </div>
     @else
-        <div class="bg-white rounded-lg shadow-md p-12 text-center">
-            <i class="fas fa-users text-gray-300 text-6xl mb-4"></i>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No Clients Yet</h3>
-            <p class="text-gray-600 mb-6">Get started by adding your first client</p>
-            <a href="{{ route('clients.create') }}"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg inline-block">
-                <i class="fas fa-plus mr-2"></i> Add First Client
-            </a>
+        <div class="card shadow-sm text-center py-5">
+            <div class="card-body">
+                <i class="fas fa-users text-muted" style="font-size: 4rem;"></i>
+                <h3 class="h4 fw-semibold text-dark mt-3 mb-2">No Clients Yet</h3>
+                <p class="text-muted mb-4">Get started by adding your first client</p>
+                <a href="{{ route('clients.create') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-plus me-2"></i> Add First Client
+                </a>
+            </div>
         </div>
     @endif
+    </div>
 @endsection

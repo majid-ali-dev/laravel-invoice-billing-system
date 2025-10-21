@@ -3,117 +3,113 @@
 @section('title', 'Invoices')
 
 @section('content')
-    <div class="flex justify-between items-center mb-8">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-900">Invoices</h1>
-            <p class="text-gray-600 mt-2">Manage all your invoices</p>
+    <div class="py-section">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="display-3 fw-bold text-dark mb-3">Invoices</h1>
+                <p class="lead text-muted">Manage all your invoices</p>
+            </div>
+            <a href="{{ route('invoices.create') }}" class="btn btn-success btn-lg shadow-sm">
+                <i class="fas fa-plus me-2"></i> Create New Invoice
+            </a>
         </div>
-        <a href="{{ route('invoices.create') }}"
-            class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg shadow-md transition">
-            <i class="fas fa-plus mr-2"></i> Create New Invoice
-        </a>
-    </div>
 
     @if ($invoices->count() > 0)
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Invoice #
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Client
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status
-                        </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach ($invoices as $invoice)
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-semibold text-gray-900">{{ $invoice->invoice_number }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="h-10 w-10 flex-shrink-0">
-                                        <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center">
-                                            <span
-                                                class="text-purple-600 font-semibold text-lg">{{ substr($invoice->client->name, 0, 1) }}</span>
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Invoice #</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Client</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Date</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Total</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Status</th>
+                                <th class="px-3 py-3 text-uppercase small fw-semibold">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($invoices as $invoice)
+                                <tr>
+                                    <td class="px-3 py-3">
+                                        <div class="fw-semibold text-dark">{{ $invoice->invoice_number }}</div>
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                                <span class="text-warning fw-semibold">{{ substr($invoice->client->name, 0, 1) }}</span>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium text-dark">{{ $invoice->client->name }}</div>
+                                                <div class="small text-muted">{{ $invoice->client->company }}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $invoice->client->name }}</div>
-                                        <div class="text-sm text-gray-500">{{ $invoice->client->company }}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                                {{ $invoice->invoice_date->format('d M, Y') }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-semibold text-gray-900">Rs. {{ number_format($invoice->total, 2) }}
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if ($invoice->status == 'paid')
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i> Paid
-                                    </span>
-                                @elseif($invoice->status == 'unpaid')
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                        <i class="fas fa-times-circle mr-1"></i> Unpaid
-                                    </span>
-                                @else
-                                    <span
-                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                        <i class="fas fa-clock mr-1"></i> Pending
-                                    </span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap font-medium">
-                                <a href="{{ route('invoices.show', $invoice) }}"
-                                    class="text-blue-600 hover:text-blue-900 mr-3" title="View">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('invoices.pdf', $invoice) }}"
-                                    class="text-green-600 hover:text-green-900 mr-3" title="Download PDF">
-                                    <i class="fas fa-file-pdf"></i>
-                                </a>
-                                <form action="{{ route('invoices.destroy', $invoice) }}" method="POST" class="inline"
-                                    onsubmit="return confirm('Are you sure you want to delete this invoice?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900" title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    </td>
+                                    <td class="px-3 py-3 text-muted">
+                                        {{ $invoice->invoice_date->format('d M, Y') }}
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        <div class="fw-semibold text-dark">Rs. {{ number_format($invoice->total, 2) }}</div>
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        @if ($invoice->status == 'paid')
+                                            <span class="badge bg-success">
+                                                <i class="fas fa-check-circle me-1"></i> Paid
+                                            </span>
+                                        @elseif($invoice->status == 'unpaid')
+                                            <span class="badge bg-danger">
+                                                <i class="fas fa-times-circle me-1"></i> Unpaid
+                                            </span>
+                                        @else
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="fas fa-clock me-1"></i> Pending
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="px-3 py-3">
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('invoices.show', $invoice) }}" class="btn btn-sm btn-outline-primary" title="View">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('invoices.pdf', $invoice) }}" class="btn btn-sm btn-outline-success" title="Download PDF">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-danger" title="Delete"
+                                                onclick="confirmDelete('This will permanently delete the invoice. This action cannot be undone.', function() {
+                                                    document.getElementById('delete-form-{{ $invoice->id }}').submit();
+                                                })">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <form id="delete-form-{{ $invoice->id }}" action="{{ route('invoices.destroy', $invoice) }}" method="POST" class="d-none">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Pagination -->
-        <div class="mt-6">
+        <div class="mt-5">
             {{ $invoices->links() }}
         </div>
     @else
-        <div class="bg-white rounded-lg shadow-md p-12 text-center">
-            <i class="fas fa-file-invoice text-gray-300 text-6xl mb-4"></i>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">No Invoices Yet</h3>
-            <p class="text-gray-600 mb-6">Get started by creating your first invoice</p>
-            <a href="{{ route('invoices.create') }}"
-                class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg inline-block">
-                <i class="fas fa-plus mr-2"></i> Create First Invoice
-            </a>
+        <div class="card shadow-sm text-center py-5">
+            <div class="card-body">
+                <i class="fas fa-file-invoice text-muted" style="font-size: 4rem;"></i>
+                <h3 class="h4 fw-semibold text-dark mt-3 mb-2">No Invoices Yet</h3>
+                <p class="text-muted mb-4">Get started by creating your first invoice</p>
+                <a href="{{ route('invoices.create') }}" class="btn btn-success btn-lg">
+                    <i class="fas fa-plus me-2"></i> Create First Invoice
+                </a>
+            </div>
         </div>
     @endif
+    </div>
 @endsection

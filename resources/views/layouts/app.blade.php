@@ -5,62 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Invoice System')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-light">
 
     <!-- Navigation -->
-    <nav class="bg-blue-600 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{{ route('dashboard') }}" class="flex items-center">
-                        <i class="fas fa-file-invoice text-white text-2xl mr-3"></i>
-                        <span class="text-white text-xl font-bold">Invoice System</span>
-                    </a>
-                </div>
-
-                <div class="flex items-center space-x-4">
-                    <a href="{{ route('dashboard') }}"
-                        class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">
-                        <i class="fas fa-home mr-1"></i> Dashboard
-                    </a>
-                    <a href="{{ route('clients.index') }}"
-                        class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">
-                        <i class="fas fa-users mr-1"></i> Clients
-                    </a>
-                    <a href="{{ route('invoices.index') }}"
-                        class="text-white hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">
-                        <i class="fas fa-file-invoice-dollar mr-1"></i> Invoices
-                    </a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
+                <i class="fas fa-file-invoice text-white fs-4 me-3"></i>
+                <span class="text-white fs-4 fw-bold">Invoice System</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('dashboard') }}">
+                            <i class="fas fa-home me-1"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('clients.index') }}">
+                            <i class="fas fa-users me-1"></i> Clients
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('invoices.index') }}">
+                            <i class="fas fa-file-invoice-dollar me-1"></i> Invoices
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Success Message -->
-    @if (session('success'))
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                <span class="block sm:inline">{{ session('success') }}</span>
-            </div>
-        </div>
-    @endif
-
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="container py-5">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white mt-12 py-6 border-t">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600">
-            <p>&copy; 2025 iCreativez Technologies. All rights reserved.</p>
+    <footer class="bg-white mt-5 py-5 border-top">
+        <div class="container text-center text-muted">
+            <p class="mb-0">&copy; 2025 iCreativez Technologies. All rights reserved.</p>
         </div>
     </footer>
 
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- SweetAlert2 Configuration -->
+    <script>
+        // Configure SweetAlert2 defaults
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
 
-</html>
+        // Success message handler
+        @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            });
+        @endif
+
+        // Confirmation function for delete actions
+        function confirmDelete(message, callback) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    callback();
+                }
+            });
+        }
+    </script>
