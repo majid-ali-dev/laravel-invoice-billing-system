@@ -1,77 +1,203 @@
-# Laravel Invoice & Billing System - iCreativez Technologies Assignment
+# 🧾 Laravel Invoice & Billing System
 
-## 📋 Task Assignment Details
+A professional, clean, and responsive Invoice & Billing management system built with Laravel 11.
 
-**Company:** iCreativez Technologies  
-**Task Title:** Portfolio Booster: Case Study + Sample Work  
-**Assigned To:** Majid Ali  
-**Duration:** 20–25 October 2025  
-**Skills Demonstrated:** PHP | Laravel | Full-Stack Development
+![Laravel](https://img.shields.io/badge/Laravel-11-red)
+![PHP](https://img.shields.io/badge/PHP-8.2-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-## 🎯 Case Study: Problem/Solution/Results
+## 📸 Screenshots
 
-### Problem Statement
-Small businesses and freelancers often struggle with manual invoice creation using Word/Excel, leading to time consumption, calculation errors, and unprofessional-looking bills.
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
 
-### Solution Developed
-Built a professional Laravel-based Invoice & Billing System that automates the entire invoicing process with:
-- Automated client management
-- Dynamic invoice generation
-- Real-time calculations
-- Professional PDF exports
-- Mobile-responsive design
+### Invoice Creation
+![Create Invoice](screenshots/create-invoice.png)
 
-### Results Achieved
-✅ **Time Efficiency** - Reduced invoice creation time from 15+ minutes to 2 minutes  
-✅ **Error Reduction** - Eliminated manual calculation mistakes  
-✅ **Professional Output** - Consistent, business-ready invoice formatting  
-✅ **Accessibility** - Available on all devices without login requirements
+### Invoice Client
+![Invoice Client](screenshots/client-invoice.png)
 
-## 🚀 Project Features
+### Create Client
+![Create Client](screenshots/create-client.png)
 
-### Core Functionality
-- **Client Management** - Add, edit, delete client profiles
-- **Invoice Creation** - Dynamic item addition with auto-calculation
-- **PDF Generation** - Professional invoice export using DomPDF
-- **Responsive Design** - Mobile-first approach for all devices
+### Client List
+![Client List](screenshots/client-list.png)
 
-### Technical Excellence
-- **Clean Architecture** - MVC pattern implementation
-- **Database Design** - Optimized relationships (Clients → Invoices → Items)
-- **Validation** - Comprehensive form validation
-- **Error Handling** - User-friendly error messages
+### PDF Output
+![PDF Invoice](screenshots/invoice-pdf.png)
 
-## 🛠️ Technology Stack
+## ✨ Features
 
-- **Backend:** Laravel 11, PHP 8.2
-- **Frontend:** Blade Templates, Bootstrap & CSS
-- **Database:** MySQL with Eloquent ORM
-- **PDF Generation:** DomPDF Library
+- 👥 **Client Management** - Add, edit, and manage client profiles
+- 🧾 **Invoice Creation** - Create professional invoices with multiple line items
+- 💰 **Auto Calculations** - Automatic subtotal, tax, and total calculations
+- 📄 **PDF Generation** - Download print-ready invoice PDFs
+- 📊 **Dashboard** - View total clients, invoices, and revenue at a glance
+- 📱 **Fully Responsive** - Works perfectly on mobile, tablet, and desktop
+- 🎨 **Modern UI** - Clean design with Bootstrap CSS
+- ✅ **Status Tracking** - Mark invoices as Paid/Unpaid/Pending
+
+## 🛠️ Tech Stack
+
+- **Backend:** Laravel 12
+- **Frontend:** Blade Templates + Bootstrap
+- **Database:** MySQL
+- **PDF Generation:** DomPDF
 - **Icons:** Font Awesome
-- **Version Control:** Git & GitHub
 
+## 📋 Requirements
 
-## ⚡ Quick Setup
+- PHP >= 8.2
+- Composer
+- MySQL
+- Node.js & NPM (optional, for asset compilation)
 
+## 🚀 Installation
+
+1. **Clone the repository**
 ```bash
-# 1. Clone repository
 git clone https://github.com/majid-ali-dev/laravel-invoice-billing-system.git
+cd laravel-invoice-system
+```
 
-# 2. Install dependencies
+2. **Install dependencies**
+```bash
 composer install
+```
 
-# 3. Environment setup
+3. **Copy environment file**
+```bash
 cp .env.example .env
+```
+
+4. **Generate application key**
+```bash
 php artisan key:generate
+```
 
-# 4. Configure database in .env file
-DB_DATABASE=your_database
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+5. **Configure database**
+Open `.env` file and update:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=invoice_system
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-# 5. Run migrations
+6. **Run migrations**
+```bash
 php artisan migrate
+```
 
-# 6. Start development server
+7. **Start development server**
+```bash
 php artisan serve
-Access application: http://localhost:8000
+```
+
+8. **Visit the application**
+```
+http://localhost:8000
+```
+
+## 📖 Usage Guide
+
+### Creating a Client
+1. Navigate to **Clients** from the top menu
+2. Click **Add New Client**
+3. Fill in client details (name, email, phone, company, address)
+4. Click **Save Client**
+
+### Creating an Invoice
+1. Navigate to **Invoices** from the top menu
+2. Click **Create New Invoice**
+3. Select a client from dropdown
+4. Add invoice items (description, quantity, price)
+5. Add tax if applicable
+6. Add notes/terms (optional)
+7. Click **Create Invoice**
+
+### Downloading PDF
+1. Go to **Invoices** list
+2. Click the PDF icon next to any invoice
+3. PDF will be downloaded automatically
+
+## 📁 Project Structure
+```
+laravel-invoice-system/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── ClientController.php
+│   │   └── InvoiceController.php
+│   └── Models/
+│       ├── Client.php
+│       ├── Invoice.php
+│       └── InvoiceItem.php
+├── database/
+│   └── migrations/
+│       ├── create_clients_table.php
+│       ├── create_invoices_table.php
+│       └── create_invoice_items_table.php
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php
+│       ├── clients/
+│       │   ├── index.blade.php
+│       │   ├── create.blade.php
+│       │   └── edit.blade.php
+│       ├── invoices/
+│       │   ├── index.blade.php
+│       │   ├── create.blade.php
+│       │   ├── show.blade.php
+│       │   └── pdf.blade.php
+│       └── dashboard.blade.php
+└── routes/
+    └── web.php
+```
+
+## 🎯 Key Highlights
+
+- ✅ **Clean Code:** Well-organized, commented, and easy to understand
+- ✅ **MVC Architecture:** Proper separation of concerns
+- ✅ **Responsive Design:** Mobile-first approach
+- ✅ **Professional UI:** Modern and user-friendly interface
+- ✅ **Scalable:** Easy to extend with new features
+- ✅ **Production Ready:** Follows Laravel best practices
+
+## 📊 Database Schema
+
+### Clients Table
+- id, name, email, phone, company, address, timestamps
+
+### Invoices Table
+- id, invoice_number, client_id, invoice_date, due_date, status, subtotal, tax, total, notes, timestamps
+
+### Invoice Items Table
+- id, invoice_id, description, quantity, price, total, timestamps
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is open-sourced under the MIT License.
+
+## 👨‍💻 Developer
+
+**Majid Ali**  
+Laravel Developer at iCreativez Technologies  
+📧 Email: majidalishar2@gmail.com  
+🔗 GitHub: [@https://github.com/majid-ali-dev](https://github.com/majid-ali-dev/laravel-invoice-billing-system)
+
+## 🙏 Acknowledgments
+
+- Built as part of iCreativez Technologies training program
+- Special thanks to the Laravel community
+- UI inspiration from modern billing systems
+
+---
+
+⭐ If you find this project helpful, please consider giving it a star!
