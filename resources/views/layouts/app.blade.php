@@ -13,7 +13,7 @@
 
 <body class="bg-light">
 
-    <!-- Navigation -->
+    <!-- Navigations -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
         <div class="container-fluid">
             <a class="navbar-brand d-flex align-items-center" href="{{ route('dashboard') }}">
@@ -47,7 +47,7 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Main Contents -->
     <main class="container py-5">
         @yield('content')
     </main>
@@ -61,7 +61,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- SweetAlert2 Configuration -->
+    <!-- SweetAlert2 Configurations -->
     <script>
         // Configure SweetAlert2 defaults
         const Toast = Swal.mixin({
