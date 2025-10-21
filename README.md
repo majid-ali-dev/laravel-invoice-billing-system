@@ -2,7 +2,7 @@
 
 A professional, clean, and responsive Invoice & Billing management system built with Laravel 11.
 
-![Laravel](https://img.shields.io/badge/Laravel-11-red)
+![Laravel](https://img.shields.io/badge/Laravel-12-red)
 ![PHP](https://img.shields.io/badge/PHP-8.2-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
