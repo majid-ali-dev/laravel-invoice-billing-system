@@ -11,6 +11,7 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->string('invoice_number')->unique();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->date('invoice_date');
             $table->date('due_date')->nullable();
@@ -18,6 +19,8 @@ return new class extends Migration
             $table->decimal('subtotal', 10, 2)->default(0);
             $table->decimal('tax', 10, 2)->default(0);
             $table->decimal('total', 10, 2)->default(0);
+            $table->string('currency', 3)->default('USD');
+            $table->string('logo_path')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

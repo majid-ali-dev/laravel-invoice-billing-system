@@ -17,7 +17,9 @@ class InvoiceItem extends Model
         'total'
     ];
 
-    // Item ka invoice
+    /**
+     * Get the invoice that owns this item
+     */
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);

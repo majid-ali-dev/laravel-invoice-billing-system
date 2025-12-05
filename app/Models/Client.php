@@ -17,7 +17,9 @@ class Client extends Model
         'address'
     ];
 
-    // Client ke saare invoices
+    /**
+     * Get all invoices for this client
+     */
     public function invoices()
     {
         return $this->hasMany(Invoice::class);

@@ -259,7 +259,14 @@
     <!-- Header -->
     <div class="header clearfix">
         <div class="company-info">
-            <h1>iCreativez Technologies</h1>
+            @if ($invoice->logo_path)
+                <img src="{{ public_path('storage/' . $invoice->logo_path) }}" alt="Logo"
+                    style="max-height: 60px; margin-bottom: 10px;">
+            @elseif ($invoice->user && $invoice->user->logo_path)
+                <img src="{{ public_path('storage/' . $invoice->user->logo_path) }}" alt="Logo"
+                    style="max-height: 60px; margin-bottom: 10px;">
+            @endif
+            <h1>{{ $invoice->user->name ?? 'iCreativez Technologies' }}</h1>
             <p>Karachi, Pakistan</p>
             <p>+92 300 5000248</p>
             <p>hello@icreativez.info</p>
@@ -334,8 +341,8 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $item->description }}</td>
                     <td class="text-right">{{ $item->quantity }}</td>
-                    <td class="text-right">Rs. {{ number_format($item->price, 2) }}</td>
-                    <td class="text-right"><strong>Rs. {{ number_format($item->total, 2) }}</strong></td>
+                    <td class="text-right">{{ $currencySymbol }} {{ number_format($item->price, 2) }}</td>
+                    <td class="text-right"><strong>{{ $currencySymbol }} {{ number_format($item->total, 2) }}</strong></td>
                 </tr>
             @endforeach
         </tbody>
@@ -346,15 +353,15 @@
         <div class="totals-box">
             <div class="total-row">
                 <span>Subtotal:</span>
-                <span><strong>Rs. {{ number_format($invoice->subtotal, 2) }}</strong></span>
+                <span><strong>{{ $currencySymbol }} {{ number_format($invoice->subtotal, 2) }}</strong></span>
             </div>
             <div class="total-row">
                 <span>Tax:</span>
-                <span><strong>Rs. {{ number_format($invoice->tax, 2) }}</strong></span>
+                <span><strong>{{ $currencySymbol }} {{ number_format($invoice->tax, 2) }}</strong></span>
             </div>
             <div class="total-row grand-total">
                 <span>Total:</span>
-                <span>Rs. {{ number_format($invoice->total, 2) }}</span>
+                <span>{{ $currencySymbol }} {{ number_format($invoice->total, 2) }}</span>
             </div>
         </div>
     </div>

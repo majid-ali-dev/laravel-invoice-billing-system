@@ -15,6 +15,17 @@
             <a href="{{ route('invoices.pdf', $invoice) }}" class="btn btn-danger">
                 <i class="fas fa-file-pdf me-2"></i> Download PDF
             </a>
+            @auth
+                @if (is_null($invoice->user_id))
+                    <form action="{{ route('invoices.claim') }}" method="POST" class="d-inline" onsubmit="return confirm('Claim this invoice and set you as owner?');">
+                        @csrf
+                        <input type="hidden" name="invoice_id" value="{{ $invoice->id }}" />
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-check me-2"></i> Claim Invoice
+                        </button>
+                    </form>
+                @endif
+            @endauth
         </div>
     </div>
 
@@ -25,7 +36,14 @@
             <div class="border-bottom pb-4 mb-4">
                 <div class="d-flex justify-content-between align-items-start">
                     <div>
-                        <h2 class="h2 fw-bold text-primary mb-2">iCreativez Technologies</h2>
+                        @if ($invoice->logo_path)
+                            <img src="{{ asset('storage/' . $invoice->logo_path) }}" alt="Logo"
+                                style="max-height: 80px; margin-bottom: 15px;">
+                        @elseif ($invoice->user && $invoice->user->logo_path)
+                            <img src="{{ asset('storage/' . $invoice->user->logo_path) }}" alt="Logo"
+                                style="max-height: 80px; margin-bottom: 15px;">
+                        @endif
+                        <h2 class="h2 fw-bold text-primary mb-2">{{ $invoice->user->name ?? 'iCreativez Technologies' }}</h2>
                         <p class="text-muted small mb-1">Karachi, Pakistan</p>
                         <p class="text-muted small mb-1">+92 300 5000248</p>
                         <p class="text-muted small mb-0">hello@icreativez.info</p>
@@ -120,8 +138,8 @@
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{ $item->description }}</td>
                                     <td class="text-end">{{ $item->quantity }}</td>
-                                    <td class="text-end">Rs. {{ number_format($item->price, 2) }}</td>
-                                    <td class="text-end fw-semibold">Rs. {{ number_format($item->total, 2) }}</td>
+                                    <td class="text-end">{{ $currencySymbol }} {{ number_format($item->price, 2) }}</td>
+                                    <td class="text-end fw-semibold">{{ $currencySymbol }} {{ number_format($item->total, 2) }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -134,15 +152,15 @@
                 <div class="bg-light p-4 rounded" style="width: 300px;">
                     <div class="d-flex justify-content-between text-muted mb-2">
                         <span>Subtotal:</span>
-                        <span class="fw-semibold">Rs. {{ number_format($invoice->subtotal, 2) }}</span>
+                        <span class="fw-semibold">{{ $currencySymbol }} {{ number_format($invoice->subtotal, 2) }}</span>
                     </div>
                     <div class="d-flex justify-content-between text-muted mb-2">
                         <span>Tax:</span>
-                        <span class="fw-semibold">Rs. {{ number_format($invoice->tax, 2) }}</span>
+                        <span class="fw-semibold">{{ $currencySymbol }} {{ number_format($invoice->tax, 2) }}</span>
                     </div>
                     <div class="d-flex justify-content-between text-dark fs-5 fw-bold border-top pt-2">
                         <span>Total:</span>
-                        <span>Rs. {{ number_format($invoice->total, 2) }}</span>
+                        <span>{{ $currencySymbol }} {{ number_format($invoice->total, 2) }}</span>
                     </div>
                 </div>
             </div>

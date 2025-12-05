@@ -11,6 +11,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'invoice_number',
+        'user_id',
         'client_id',
         'invoice_date',
         'due_date',
@@ -18,6 +19,8 @@ class Invoice extends Model
         'subtotal',
         'tax',
         'total',
+        'currency',
+        'logo_path',
         'notes'
     ];
 
@@ -26,13 +29,25 @@ class Invoice extends Model
         'due_date' => 'date',
     ];
 
-    // Invoice ka client
+    /**
+     * Get the user who created this invoice
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the client for this invoice
+     */
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
-    // Invoice ki items
+    /**
+     * Get all items for this invoice
+     */
     public function items()
     {
         return $this->hasMany(InvoiceItem::class);

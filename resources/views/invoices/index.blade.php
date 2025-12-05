@@ -52,7 +52,19 @@
                                             {{ $invoice->invoice_date->format('d M, Y') }}
                                         </td>
                                         <td class="px-3 py-3">
-                                            <div class="fw-semibold text-dark">Rs. {{ number_format($invoice->total, 2) }}
+                                            <div class="fw-semibold text-dark">
+                                                @php
+                                                    $currencySymbols = [
+                                                        'USD' => '$',
+                                                        'PKR' => 'Rs.',
+                                                        'EUR' => '€',
+                                                        'GBP' => '£',
+                                                        'AED' => 'د.إ',
+                                                    ];
+                                                    $symbol = $currencySymbols[$invoice->currency] ?? '$';
+                                                @endphp
+                                                {{ $symbol }} {{ number_format($invoice->total, 2) }}
+                                                <span class="small text-muted">({{ $invoice->currency }})</span>
                                             </div>
                                         </td>
                                         <td class="px-3 py-3">

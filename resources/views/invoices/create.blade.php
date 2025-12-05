@@ -11,7 +11,7 @@
 
         <div class="card shadow-sm">
             <div class="card-body p-5">
-            <form action="{{ route('invoices.store') }}" method="POST" id="invoiceForm">
+            <form action="{{ route('invoices.store') }}" method="POST" id="invoiceForm" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row g-4 mb-4">
@@ -84,6 +84,40 @@
                         @error('status')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
+                    </div>
+
+                    <!-- Currency -->
+                    <div class="col-md-6">
+                        <label for="currency" class="form-label fw-semibold">
+                            Currency <span class="text-danger">*</span>
+                        </label>
+                        <select name="currency" id="currency" required
+                            class="form-select @error('currency') is-invalid @enderror">
+                            <option value="">-- Select Currency --</option>
+                            @foreach ($currencies as $currency)
+                                <option value="{{ $currency }}" {{ old('currency') == $currency ? 'selected' : '' }}>
+                                    {{ $currency }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('currency')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Invoice Logo (optional) -->
+                    <div class="col-md-6">
+                        <label for="logo" class="form-label fw-semibold">
+                            Invoice Logo (optional)
+                        </label>
+                        <input type="file" name="logo" id="logo"
+                            class="form-control @error('logo') is-invalid @enderror" accept="image/png,image/jpeg">
+                        @error('logo')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        <div class="mt-2">
+                            <img id="logoPreview" src="#" alt="Logo Preview" style="max-height:80px;display:none;" />
+                        </div>
                     </div>
                 </div>
 
@@ -284,6 +318,19 @@
 
             document.getElementById('subtotalDisplay').textContent = subtotal.toFixed(2);
             document.getElementById('totalDisplay').textContent = total.toFixed(2);
+        }
+
+        // Logo preview
+        const logoInput = document.getElementById('logo');
+        if (logoInput) {
+            logoInput.addEventListener('change', function () {
+                const file = this.files && this.files[0];
+                const preview = document.getElementById('logoPreview');
+                if (file && preview) {
+                    preview.src = URL.createObjectURL(file);
+                    preview.style.display = 'block';
+                }
+            });
         }
     </script>
     </div>
